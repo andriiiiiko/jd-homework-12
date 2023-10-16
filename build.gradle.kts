@@ -13,7 +13,9 @@ repositories {
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+
     compileOnly("jakarta.servlet:jakarta.servlet-api:6.0.0")
+    implementation("org.thymeleaf:thymeleaf:3.1.2.RELEASE")
 
 }
 
