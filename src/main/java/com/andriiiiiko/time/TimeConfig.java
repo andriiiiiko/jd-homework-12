@@ -17,6 +17,8 @@ public class TimeConfig {
             "UTC 11", "UTC 12", "UTC 13", "UTC-1", "UTC-2", "UTC-3", "UTC-4", "UTC-5", "UTC-6", "UTC-7", "UTC-8",
             "UTC-9", "UTC-10", "UTC-11", "UTC-12"
     );
+    public static final String TEMPLATES_URL = "C:\\\\Program Files\\\\Apache Software Foundation\\\\Tomcat 10.1\\\\" +
+            "webapps\\\\tomcat\\\\WEB-INF\\\\classes\\\\templates\\\\";
 
     private TimeConfig() {
 

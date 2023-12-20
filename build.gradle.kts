@@ -16,7 +16,6 @@ dependencies {
 
     compileOnly("jakarta.servlet:jakarta.servlet-api:6.0.0")
     implementation("org.thymeleaf:thymeleaf:3.1.2.RELEASE")
-
 }
 
 tasks.test {

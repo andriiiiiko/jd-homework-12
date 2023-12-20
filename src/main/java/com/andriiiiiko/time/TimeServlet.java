@@ -1,6 +1,7 @@
 package com.andriiiiiko.time;
 
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -32,9 +33,8 @@ public class TimeServlet extends HttpServlet {
     @Override
     public void init() {
         engine = new TemplateEngine();
-
         FileTemplateResolver resolver = new FileTemplateResolver();
-        resolver.setPrefix("C:\\Users\\prota\\IdeaProjects\\jd-homework-12\\templates\\");
+        resolver.setPrefix(TEMPLATES_URL);
         resolver.setSuffix(".html");
         resolver.setTemplateMode("HTML5");
         resolver.setOrder(engine.getTemplateResolvers().size());
@@ -53,15 +53,20 @@ public class TimeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType(CONTENT_TYPE_HTML);
 
-        String timezoneParam = request.getParameter(PARAM_TIMEZONE);
-
         TimeZone timezone = TimeZone.getTimeZone(DEFAULT_TIMEZONE);
 
-        if (timezoneParam != null) {
-            String stringZoneID = timezoneParam.substring(3).trim();
+        Cookie[] cookies = request.getCookies();
 
-            int zoneId = Integer.parseInt(stringZoneID);
-            timezone.setRawOffset(zoneId * MILLISECONDS_IN_HOUR);
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("lastTimezone".equals(cookie.getName())) {
+                    String lastTimeZone = cookie.getValue();
+                    String stringZoneID = lastTimeZone.substring(3).trim();
+                    int zoneId = Integer.parseInt(stringZoneID);
+                    timezone.setRawOffset(zoneId * MILLISECONDS_IN_HOUR);
+                    break;
+                }
+            }
         }
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
